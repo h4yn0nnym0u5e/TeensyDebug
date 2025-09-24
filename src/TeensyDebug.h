@@ -21,7 +21,12 @@
 // Change this (with care!) if you think the debug interrupt is
 // interfering with library operation. For example, you can
 // use IRQ_SOFTWARE+1 (a.k.a. IRQ_Reserved2) for Teensy 4.x
-#define IRQ_DEBUG IRQ_SOFTWARE
+#if !defined(IRQ_DEBUG_OFFSET)
+  #define IRQ_DEBUG IRQ_SOFTWARE
+#else 
+  #define IRQ_DEBUG (IRQ_SOFTWARE+IRQ_DEBUG_OFFSET)
+#endif // !defined(IRQ_DEBUG)
+
 
 //
 // Need to know where RAM starts/stops so we know where
